@@ -1,9 +1,7 @@
 package me.izac.groupdebtmanager.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import me.izac.groupdebtmanager.dto.DebtDTO;
 
 import java.util.Date;
@@ -12,6 +10,8 @@ import java.util.Date;
 @Getter
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_debt")
 public class Debt {
     @Id
@@ -35,6 +35,7 @@ public class Debt {
 
     public DebtDTO toDebtDTO(){
         return DebtDTO.builder()
+                .id(this.id)
                 .amount(this.amount)
                 .amountPerUser(this.amountPerUser)
                 .debtor(this.debtor.toUserDTO())

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/groups")
 @RequiredArgsConstructor
 public class GroupController {
@@ -34,12 +34,12 @@ public class GroupController {
         return groupService.findGroupById(groupId);
     }
 
-    @PostMapping("/{groupId}/users/{userId}}")
+    @PostMapping("/{groupId}/users/{userId}")
     void addUserToGroup(@PathVariable Long groupId, @PathVariable Long userId){
         userGroupService.addUserToGroup(groupId, userId);
     }
 
-    @DeleteMapping("/{groupId}/users/{userId}}")
+    @DeleteMapping("/{groupId}/users/{userId}")
     void deleteUserToGroup(@PathVariable Long groupId, @PathVariable Long userId){
         userGroupService.removeUserFromGroup(groupId, userId);
     }

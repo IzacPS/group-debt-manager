@@ -1,9 +1,7 @@
 package me.izac.groupdebtmanager.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import me.izac.groupdebtmanager.dto.UserDTO;
 
 import java.util.Set;
@@ -12,7 +10,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
-@Table(name = "tb_member")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "tb_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +35,7 @@ public class User {
 
     public UserDTO toUserDTO(){
         return UserDTO.builder()
+                .id(this.id)
                 .email(this.email)
                 .firstName(this.firstName)
                 .lastName(this.lastName)
