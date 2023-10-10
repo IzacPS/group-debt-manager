@@ -1,18 +1,17 @@
 package me.izac.groupdebtmanager.service;
 
+import me.izac.groupdebtmanager.dto.CreateDebtDTO;
+import me.izac.groupdebtmanager.dto.DebtDTO;
 import me.izac.groupdebtmanager.model.Debt;
-import me.izac.groupdebtmanager.model.Group;
-import me.izac.groupdebtmanager.model.Member;
 
 import java.util.List;
 
 public interface IDebtService {
-    Debt createDebt(Member member, Member creditor, Group group, double amount);
-    List<Debt> findDebtsForMemberInGroup(Member member, Group group);
-    List<Debt> findCreditsForMemberInGroup(Member member, Group group);
-    List<Debt> findAllDebtsOfAMember(Member member);
-    List<Debt> findAllCreditsOfAMember(Member member);
+    DebtDTO createDebt(CreateDebtDTO debtDTO);
+    DebtDTO getDebtById(Long debtId);
+    List<DebtDTO> listAllDebtsFromUser(Long userId);
 
-    Debt updateDebtStatusToPaid(Debt debt);
-    Debt updateDebtPaidAmount(Debt debt, double amount);
+    List<DebtDTO> listAllDebtsFromGroup(Long groupId);
+    DebtDTO updateDebtStatus(Long debtId, Debt.Status status);
+    DebtDTO updateDebt(CreateDebtDTO debtDTO, Long debtId);
 }

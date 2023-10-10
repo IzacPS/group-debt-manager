@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import me.izac.groupdebtmanager.dto.DebtDto;
-import me.izac.groupdebtmanager.dto.MemberDto;
+import me.izac.groupdebtmanager.dto.DebtDTO;
 
 import java.util.Date;
 
@@ -19,41 +18,34 @@ public class Debt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double amount;
-    private double amountPaid;
+    private double amountPerUser;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Status status;
     private String description;
-    private Date debtDate;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "debtor_id")
-    private Member debtor;
-
-    @ManyToOne
-    @JoinColumn(name = "creditor_id")
-    private Member creditor;
+    private User debtor;
 
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
 
+    public DebtDTO toDebtDTO(){
+        return DebtDTO.builder()
+                .amount(this.amount)
+                .amountPerUser(this.amountPerUser)
+                .debtor(this.debtor.toUserDTO())
+                .group(this.group.toGroupDTO())
+                .status(this.status)
+                .build();
+
+    }
 
     public enum Status{
         PENDING,
         PAID
     }
-
-    public DebtDto getDebtDto(){
-        return DebtDto.builder()
-                .amount(this.amount)
-                .amountPaid(this.amountPaid)
-                .status(this.status.toString())
-                .description(this.description)
-                .debtDate(this.debtDate)
-                .debtor(this.debtor.toMemberDto())
-                .creditor(this.creditor.toMemberDto())
-                .group(this.group.getGroupDto()).build();
-    }
-
 }

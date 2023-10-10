@@ -4,9 +4,10 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import me.izac.groupdebtmanager.dto.GroupDto;
+import me.izac.groupdebtmanager.dto.GroupDTO;
 
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -20,11 +21,16 @@ public class Group {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "group")
-    private List<Debt> debts;
+    @ManyToMany(mappedBy = "groups")
+    private Set<User> users;
 
-    public GroupDto getGroupDto(){
-        return GroupDto.builder()
-                .name(this.name).build();
+    @OneToMany(mappedBy = "group")
+    private Set<Debt> debts;
+
+    public GroupDTO toGroupDTO(){
+        return GroupDTO.builder()
+                .name(this.name)
+                .description(this.description)
+                .build();
     }
 }

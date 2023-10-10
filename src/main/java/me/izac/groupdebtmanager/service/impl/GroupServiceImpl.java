@@ -2,11 +2,13 @@ package me.izac.groupdebtmanager.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import me.izac.groupdebtmanager.dto.GroupDto;
+import me.izac.groupdebtmanager.dto.CreateGroupDTO;
+import me.izac.groupdebtmanager.dto.GroupDTO;
+import me.izac.groupdebtmanager.dto.UserDTO;
 import me.izac.groupdebtmanager.model.Group;
+import me.izac.groupdebtmanager.model.User;
 import me.izac.groupdebtmanager.repository.GroupRepository;
 import me.izac.groupdebtmanager.service.IGroupService;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,23 +19,24 @@ public class GroupServiceImpl implements IGroupService {
     private final GroupRepository groupRepository;
 
     @Override
-    public Group createMember(GroupDto groupDto) {
-        Group group = Group.builder().name(groupDto.getName()).build();
-        return groupRepository.save(group);
+    public GroupDTO createGroup(CreateGroupDTO groupDto) {
+        return groupRepository.save(groupDto.toGroup()).toGroupDTO();
     }
 
     @Override
-    public List<Group> listAllGroups() {
-        return groupRepository.findAll();
+    public List<GroupDTO> listAllGroups() {
+        return groupRepository.findAll().stream().map(Group::toGroupDTO).toList();
     }
 
     @Override
-    public Group findGroupById(Long id) {
-        return groupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Group not found"));
+    public GroupDTO updateGroup(CreateGroupDTO groupDTO, Long groupId) {
+        Group group = groupDTO.toGroup();
+        group.setId(groupId);
+        return groupRepository.save(group).toGroupDTO();
     }
 
     @Override
-    public void deleteGroupById(Long id) {
-        groupRepository.deleteById(id);
+    public GroupDTO findGroupById(Long groupId) {
+        return groupRepository.findById(groupId).orElseThrow().toGroupDTO();
     }
 }

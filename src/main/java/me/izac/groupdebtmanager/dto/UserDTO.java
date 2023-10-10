@@ -1,5 +1,6 @@
 package me.izac.groupdebtmanager.dto;
 
+import jakarta.persistence.Entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class MemberDto {
+public class UserDTO {
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
 }

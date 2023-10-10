@@ -1,13 +1,17 @@
 package me.izac.groupdebtmanager.service;
 
-import me.izac.groupdebtmanager.dto.GroupDto;
+import me.izac.groupdebtmanager.dto.CreateGroupDTO;
+import me.izac.groupdebtmanager.dto.CreateUserDTO;
+import me.izac.groupdebtmanager.dto.GroupDTO;
+import me.izac.groupdebtmanager.dto.UserDTO;
 import me.izac.groupdebtmanager.model.Group;
 
 import java.util.List;
 
 public interface IGroupService {
-    Group createMember(GroupDto groupDto);
-    List<Group> listAllGroups();
-    Group findGroupById(Long groupId);
-    void deleteGroupById(Long groupId);
+    GroupDTO createGroup(CreateGroupDTO groupDto);
+    List<GroupDTO> listAllGroups();
+
+    GroupDTO updateGroup(CreateGroupDTO groupDTO, Long groupId);
+    GroupDTO findGroupById(Long groupId);
 }

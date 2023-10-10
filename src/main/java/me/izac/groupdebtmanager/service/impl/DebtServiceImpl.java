@@ -1,10 +1,14 @@
 package me.izac.groupdebtmanager.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import me.izac.groupdebtmanager.dto.CreateDebtDTO;
+import me.izac.groupdebtmanager.dto.DebtDTO;
 import me.izac.groupdebtmanager.model.Debt;
 import me.izac.groupdebtmanager.model.Group;
-import me.izac.groupdebtmanager.model.Member;
+import me.izac.groupdebtmanager.model.User;
 import me.izac.groupdebtmanager.repository.DebtRepository;
+import me.izac.groupdebtmanager.repository.GroupRepository;
+import me.izac.groupdebtmanager.repository.UserRepository;
 import me.izac.groupdebtmanager.service.IDebtService;
 import org.springframework.stereotype.Service;
 
@@ -14,51 +18,43 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DebtServiceImpl implements IDebtService {
     private final DebtRepository debtRepository;
-    @Override
-    public Debt createDebt(Member debtor, Member creditor, Group group, double amount) {
-        Debt debt = Debt.builder()
-                .debtor(debtor)
-                .creditor(creditor)
-                .amount(amount)
-                .status(Debt.Status.PENDING).build();
+    private final UserRepository userRepository;
+    private final GroupRepository groupRepository;
 
-        return debtRepository.save(debt);
+    @Override
+    public DebtDTO createDebt(CreateDebtDTO debtDTO) {
+        User user = userRepository.findById(debtDTO.getDebtorId()).orElseThrow();
+        Group group = groupRepository.findById(debtDTO.getGroupId()).orElseThrow();
+        Debt debt = debtDTO.toDebt(user, group);
+        return debtRepository.save(debt).toDebtDTO();
     }
 
     @Override
-    public List<Debt> findDebtsForMemberInGroup(Member member, Group group) {
-        return debtRepository.findDebtsForMemberInGroup(member.getId(), group.getId());
+    public DebtDTO getDebtById(Long debtId) {
+        return debtRepository.findById(debtId).orElseThrow().toDebtDTO();
     }
 
     @Override
-    public List<Debt> findCreditsForMemberInGroup(Member member, Group group) {
-        return debtRepository.findCreditsForMemberInGroup(member.getId(), group.getId());
+    public List<DebtDTO> listAllDebtsFromUser(Long userId) {
+        return debtRepository.findAllDebtsFromUser(userId).stream().map(Debt::toDebtDTO).toList();
     }
 
     @Override
-    public List<Debt> findAllDebtsOfAMember(Member member) {
-        return debtRepository.findByDebtorId(member.getId());
+    public List<DebtDTO> listAllDebtsFromGroup(Long groupId) {
+        return debtRepository.findAllDebtsFromGroup(groupId).stream().map(Debt::toDebtDTO).toList();
     }
 
     @Override
-    public List<Debt> findAllCreditsOfAMember(Member member) {
-        return debtRepository.findByCreditorId(member.getId());
+    public DebtDTO updateDebtStatus(Long debtId, Debt.Status status) {
+        Debt debt = debtRepository.findById(debtId).orElseThrow();
+        debt.setStatus(status);
+        return debtRepository.save(debt).toDebtDTO();
     }
 
     @Override
-    public Debt updateDebtStatusToPaid(Debt debt) {
-        debt.setStatus(Debt.Status.PAID);
-        return debtRepository.save(debt);
-    }
-
-    @Override
-    public Debt updateDebtPaidAmount(Debt debt, double amount) {
-        double e = 0.000001;
-        double paidSoFar = debt.getAmountPaid() + amount;
-        debt.setAmountPaid(paidSoFar);
-        if(debt.getAmount() - paidSoFar <= e){
-            debt.setStatus(Debt.Status.PAID);
-        }
-        return debtRepository.save(debt);
+    public DebtDTO updateDebt(CreateDebtDTO debtDTO, Long debtId) {
+        Debt debt = debtRepository.findById(debtId).orElseThrow();
+        debt.setId(debtId);
+        return debtRepository.save(debt).toDebtDTO();
     }
 }

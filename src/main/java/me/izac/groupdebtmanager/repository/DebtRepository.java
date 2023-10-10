@@ -9,12 +9,9 @@ import java.util.List;
 
 @Repository
 public interface DebtRepository extends JpaRepository<Debt, Long> {
-    @Query("select d from Debt d where d.debtor.id = ?1 and d.group.id = ?2")
-    List<Debt> findDebtsForMemberInGroup(Long memberId, Long groupId);
+    @Query("select d from Debt d where d.debtor.id = ?1")
+    List<Debt> findAllDebtsFromUser(Long userId);
 
-    @Query("select d from Debt d where d.creditor.id = ?1 and d.group.id = ?2")
-    List<Debt> findCreditsForMemberInGroup(Long memberId, Long groupId);
-
-    List<Debt> findByDebtorId(Long debtor_id);
-    List<Debt> findByCreditorId(Long creditor_id);
+    @Query("select d from Debt d where d.group.id = ?1")
+    List<Debt> findAllDebtsFromGroup(Long groupId);
 }

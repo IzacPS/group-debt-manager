@@ -4,13 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
-
-@Getter
 @Setter
+@Getter
 @Builder
-public class GroupDto {
+public class GroupDTO {
+    private Long id;
     private String name;
-    private List<MemberDto> members;
+    private String description;
 }
