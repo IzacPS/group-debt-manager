@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+    <form th:action="@{/login}" method="post" class="px-4 mt-lg-5">
+        <div class="container col-md-offset-3 col-md-8 mt-lg-5">
+
+            <div class="row mt-2">
+                <div th:if="${param.error}" class="col-sm-8">
+                    <p class="alert alert-danger">Invalid username or password</p>
+                </div>
+
+                <div th:if="${param.verified}" class="col-sm-8">
+                    <p class="alert alert-info">Account has already been verified, please log in here.</p>
+                </div>
+
+                <div th:if="${param.valid}" class="col-sm-8">
+                    <p class="alert alert-info">Email verified successfully, please log in here.</p>
+                </div>
+
+                <div th:if="${param.valid}" class="col-sm-8">
+                    <p class="alert alert-warning">You have been logged out.</p>
+                </div>
+            </div>
+
+            <h2 class="mb-4">User Login Form</h2>
+
+            <div class="mb-3 row">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-6">
+                    <input type="text" id="email" autofocus="autofocus" class="form-control" required name="email">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="password" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-6">
+                    <input type="password" id="password" autofocus="autofocus" class="form-control" required name="email">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" id="login" name="login" class="btn btn-success">Login</button>
+                <span>Not registered yet? <a href="/" th:href="@{/register/register-form}">Register.</a></span>
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>
