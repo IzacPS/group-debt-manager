@@ -1,0 +1,2 @@
+INSERT INTO TB_GROUP (DESCRIPTION,NAME)
+VALUES ('The First Group', 'Group First');

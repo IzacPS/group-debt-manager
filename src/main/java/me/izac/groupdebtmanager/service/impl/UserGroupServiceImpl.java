@@ -1,6 +1,7 @@
 package me.izac.groupdebtmanager.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import me.izac.groupdebtmanager.dto.GroupDTO;
 import me.izac.groupdebtmanager.dto.UserDTO;
 import me.izac.groupdebtmanager.model.Group;
 import me.izac.groupdebtmanager.model.User;
@@ -21,6 +22,11 @@ public class UserGroupServiceImpl implements IUserGroupService {
     @Override
     public List<UserDTO> findAllUsersInGroup(Long groupId) {
         return userGroupRepository.findAllUsersInGroup(groupId).stream().map(User::toUserDTO).toList();
+    }
+
+    @Override
+    public List<GroupDTO> findAllGroupsOfUser(Long userId) {
+        return userGroupRepository.findAllGroupsOfUser(userId).stream().map(Group::toGroupDTO).toList();
     }
 
     @Override

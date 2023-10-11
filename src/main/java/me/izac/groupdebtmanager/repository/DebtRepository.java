@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface DebtRepository extends JpaRepository<Debt, Long> {
-    @Query("select d from Debt d where d.debtor.id = ?1")
+    @Query("select u.debts from User u where u.id = ?1")
     List<Debt> findAllDebtsFromUser(Long userId);
 
-    @Query("select d from Debt d where d.group.id = ?1")
+    @Query("select g.debts from Group g where g.id = ?1")
     List<Debt> findAllDebtsFromGroup(Long groupId);
 }

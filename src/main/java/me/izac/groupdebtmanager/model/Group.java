@@ -10,9 +10,10 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Table(name = "tb_group")
 public class Group {
     @Id

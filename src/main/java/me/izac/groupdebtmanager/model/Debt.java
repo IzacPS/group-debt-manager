@@ -3,6 +3,7 @@ package me.izac.groupdebtmanager.model;
 import jakarta.persistence.*;
 import lombok.*;
 import me.izac.groupdebtmanager.dto.DebtDTO;
+import org.apache.commons.lang3.builder.EqualsExclude;
 
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import java.util.Date;
 @Getter
 @Builder
 @Entity
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tb_debt")

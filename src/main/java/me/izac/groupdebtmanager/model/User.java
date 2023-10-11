@@ -9,9 +9,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Table(name = "tb_user")
 public class User {
     @Id
