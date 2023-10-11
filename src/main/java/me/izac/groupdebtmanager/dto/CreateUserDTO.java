@@ -1,5 +1,6 @@
 package me.izac.groupdebtmanager.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import me.izac.groupdebtmanager.model.User;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 public class CreateUserDTO {
     private String firstName;
     private String lastName;
