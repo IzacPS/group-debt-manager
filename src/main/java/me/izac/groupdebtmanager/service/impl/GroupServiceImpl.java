@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.izac.groupdebtmanager.dto.CreateGroupDTO;
 import me.izac.groupdebtmanager.dto.GroupCompleteDTO;
 import me.izac.groupdebtmanager.dto.GroupDTO;
+import me.izac.groupdebtmanager.exception.GroupNotFound;
 import me.izac.groupdebtmanager.model.Group;
 import me.izac.groupdebtmanager.repository.DebtRepository;
 import me.izac.groupdebtmanager.repository.GroupRepository;
@@ -17,8 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupServiceImpl implements IGroupService {
     private final GroupRepository groupRepository;
-    private final DebtRepository debtRepository;
-    private final UserRepository userRepository;
 
     @Override
     public GroupDTO createGroup(CreateGroupDTO groupDto) {
@@ -27,8 +26,6 @@ public class GroupServiceImpl implements IGroupService {
 
     @Override
     public List<GroupCompleteDTO> listAllGroups() {
-        //            List<Long> users = userRepository.findAllByGroupId(group.getId()).stream().map(User::getId).toList();
-        //            List<Long> debts = debtRepository.findAllByGroupId(group.getId()).stream().map(Debt::getId).toList();
         return groupRepository.findAll().stream().map(Group::toGroupCompleteDTO).toList();
     }
 
@@ -37,15 +34,11 @@ public class GroupServiceImpl implements IGroupService {
 
         Group group = groupDTO.toGroup();
         group.setId(groupId);
-//        List<Long> users = userRepository.findAllByGroupId(groupId).stream().map(User::getId).toList();
-//        List<Long> debts = debtRepository.findAllByGroupId(groupId).stream().map(Debt::getId).toList();
         return groupRepository.save(group).toGroupCompleteDTO();
     }
 
     @Override
     public GroupCompleteDTO findGroupById(Long groupId) {
-//        List<Long> users = userRepository.findAllByGroupId(groupId).stream().map(User::getId).toList();
-//        List<Long> debts = debtRepository.findAllByGroupId(groupId).stream().map(Debt::getId).toList();
-        return groupRepository.findById(groupId).orElseThrow().toGroupCompleteDTO();
+        return groupRepository.findById(groupId).orElseThrow(() -> new GroupNotFound(groupId)).toGroupCompleteDTO();
     }
 }

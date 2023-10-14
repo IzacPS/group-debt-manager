@@ -14,7 +14,6 @@ public interface IDebtService {
     List<DebtCompleteDTO> listAllDebtsFromCreditorByEmail(String email);
 
     List<DebtCompleteDTO> listAllDebtsFromGroup(Long groupId);
-    DebtCompleteDTO updateDebtStatus(Long debtId, Debt.Status status);
     DebtCompleteDTO updateDebt(CreateDebtDTO debtDTO, Long debtId);
 
     List<DebtDebtorDTO> payDebt(ListOfIdsDTO debts, Long userId);

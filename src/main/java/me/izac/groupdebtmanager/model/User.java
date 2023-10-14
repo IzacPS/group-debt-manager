@@ -53,7 +53,7 @@ public class User {
                 .firstName(this.firstName)
                 .lastName(this.lastName)
                 .debtsAsCreditor(debtsAsCreditor.stream().map(Debt::getId).toList())
-                .debtsAsDebtor(debtsAsDebtor.stream().map(d -> d.getDebtor().getId()).toList())
+                .debtsAsDebtor(debtsAsDebtor.stream().map(d -> d.getDebt().getId()).toList())
                 .groups(groups.stream().map(Group::getId).toList())
                 .build();
     }

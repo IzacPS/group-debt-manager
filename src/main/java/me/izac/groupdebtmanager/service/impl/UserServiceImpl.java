@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.izac.groupdebtmanager.dto.CreateUserDTO;
 import me.izac.groupdebtmanager.dto.UserCompleteDTO;
 import me.izac.groupdebtmanager.dto.UserDTO;
+import me.izac.groupdebtmanager.exception.UserNotFound;
 import me.izac.groupdebtmanager.model.User;
 import me.izac.groupdebtmanager.repository.UserRepository;
 import me.izac.groupdebtmanager.service.IUserService;
@@ -29,16 +30,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserCompleteDTO findUserById(Long id) {
-        //TODO: throw exception
         return userRepository.findById(id)
-                .orElseThrow()
+                .orElseThrow(() -> new UserNotFound(id))
                 .toUserCompleteDTO();
     }
 
     @Override
     public UserCompleteDTO findUserByEmail(String email) {
         return userRepository.findUserByEmail(email)
-                .orElseThrow()
+                .orElseThrow(() -> new UserNotFound(email))
                 .toUserCompleteDTO();
     }
 }

@@ -54,6 +54,7 @@ public class Debt {
         return DebtCompleteDTO.builder()
                 .id(this.id)
                 .amount(this.amount)
+                .amountPerUser(this.amountPerUser)
                 .debtors(this.debtors.stream().map(d -> d.getDebtor().getId()).toList())
                 .creditor(this.creditor.getId())
                 .status(this.status)

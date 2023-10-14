@@ -89,4 +89,5 @@ aplicação podemos encontrar as definições dos endpoints em ``localhost:8080/
 Um arquivo ``.properties`` é fornecido com a configuração do banco de dados em memória H2. Esse arquivo está nomeado
 como ``application-dev.properties``. Para informar a Spring utilizar esse arquivo, é preciso adicionar
 a variável de ambiente ``SPRING_PROFILES_ACTIVE=dev``.
+Ao executar a aplicação, a base de dados é preenchida com alguns dados predefinidos no arquivo ``data.sql``.
 

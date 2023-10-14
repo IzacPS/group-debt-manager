@@ -13,6 +13,7 @@ import java.util.List;
 public class DebtCompleteDTO {
     private Long id;
     private double amount;
+    private double amountPerUser;
     private Long creditor;
     private Debt.Status status;
     private List<Long> debtors;
