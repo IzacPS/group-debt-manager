@@ -2,12 +2,12 @@ package me.izac.groupdebtmanager.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import me.izac.groupdebtmanager.dto.*;
+import me.izac.groupdebtmanager.dto.CreateDebtDTO;
+import me.izac.groupdebtmanager.dto.DebtCompleteDTO;
+import me.izac.groupdebtmanager.dto.DebtDTO;
+import me.izac.groupdebtmanager.dto.ListOfIdsDTO;
 import me.izac.groupdebtmanager.service.IDebtService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

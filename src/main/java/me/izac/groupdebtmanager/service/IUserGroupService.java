@@ -1,6 +1,8 @@
 package me.izac.groupdebtmanager.service;
 
-import me.izac.groupdebtmanager.dto.*;
+import me.izac.groupdebtmanager.dto.GroupCompleteDTO;
+import me.izac.groupdebtmanager.dto.ListOfIdsDTO;
+import me.izac.groupdebtmanager.dto.UserCompleteDTO;
 
 import java.util.List;
 

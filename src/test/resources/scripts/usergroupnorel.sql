@@ -1,9 +1,7 @@
--- Inserir grupos
 INSERT INTO tb_group (name, description) VALUES
   ('Casa Amarela', 'Compartilhamento de despesas na casa amarela'),
   ('Familia Silva', 'Despesas da familia Silva');
 
--- Inserir usuários
 INSERT INTO tb_user (email, password, first_name, last_name) VALUES
   ('joao@example.com', 'senha123', 'Joao', 'Silva'),
   ('maria@example.com', 'senha456', 'Maria', 'Ferreira'),

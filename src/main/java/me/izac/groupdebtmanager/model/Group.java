@@ -5,7 +5,6 @@ import lombok.*;
 import me.izac.groupdebtmanager.dto.GroupCompleteDTO;
 import me.izac.groupdebtmanager.dto.GroupDTO;
 
-import java.util.List;
 import java.util.Set;
 
 @Setter

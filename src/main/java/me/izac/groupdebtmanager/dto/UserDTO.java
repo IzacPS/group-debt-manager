@@ -1,6 +1,5 @@
 package me.izac.groupdebtmanager.dto;
 
-import jakarta.persistence.Entity;
 import lombok.*;
 
 @Getter

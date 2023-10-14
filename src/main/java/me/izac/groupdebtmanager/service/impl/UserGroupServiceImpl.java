@@ -1,8 +1,9 @@
 package me.izac.groupdebtmanager.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import me.izac.groupdebtmanager.dto.*;
-import me.izac.groupdebtmanager.model.Debt;
+import me.izac.groupdebtmanager.dto.GroupCompleteDTO;
+import me.izac.groupdebtmanager.dto.ListOfIdsDTO;
+import me.izac.groupdebtmanager.dto.UserCompleteDTO;
 import me.izac.groupdebtmanager.model.Group;
 import me.izac.groupdebtmanager.model.User;
 import me.izac.groupdebtmanager.repository.DebtRepository;

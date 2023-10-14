@@ -4,16 +4,10 @@ import lombok.RequiredArgsConstructor;
 import me.izac.groupdebtmanager.dto.CreateUserDTO;
 import me.izac.groupdebtmanager.dto.UserCompleteDTO;
 import me.izac.groupdebtmanager.dto.UserDTO;
-import me.izac.groupdebtmanager.model.Debt;
-import me.izac.groupdebtmanager.model.Group;
 import me.izac.groupdebtmanager.model.User;
-import me.izac.groupdebtmanager.repository.DebtRepository;
-import me.izac.groupdebtmanager.repository.GroupRepository;
 import me.izac.groupdebtmanager.repository.UserRepository;
 import me.izac.groupdebtmanager.service.IUserService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

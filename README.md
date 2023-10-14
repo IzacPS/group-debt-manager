@@ -1,7 +1,13 @@
 # Desafio API REST Spring Boot 3
 
 O repositório possui a implementação em Spring Boot de uma api para a criação de dívidas entre usuários em um grupo.
-O sistema possui três entidades principais, os usuários, grupos e débitos (dívidas). Um usuário pode participar de
+## Principais Tecnologias
+- **Java 17**: Utilizaremos a versão LTS mais recente do Java para tirar vantagem das últimas inovações que essa linguagem robusta e amplamente utilizada oferece;
+- **Spring Boot 3**: Trabalharemos com a mais nova versão do Spring Boot, que maximiza a produtividade do desenvolvedor por meio de sua poderosa premissa de autoconfiguração;
+- **Spring Data JPA**: Exploraremos como essa ferramenta pode simplificar nossa camada de acesso aos dados, facilitando a integração com bancos de dados SQL;
+- **OpenAPI (Swagger)**: Vamos criar uma documentação de API eficaz e fácil de entender usando a OpenAPI (Swagger), perfeitamente alinhada com a alta produtividade que o Spring Boot oferece;
+
+O sistema desenvolvido possui três entidades principais, os usuários, grupos e débitos (dívidas). Um usuário pode participar de
 vários grupos. Um grupo, pode ter vários usuários. 
 
 Um usuário dentro de um grupo pode criar um débito como credor. Esse débito do credor pode ser dividido entre outros
@@ -50,3 +56,22 @@ erDiagram
     }
     DebtDebtor }|--|| Debt : "Débito"
 ```
+A aplicação possui os seguintes endpoints:
+- **Endpoints relativos a usuário**
+
+  ![Alt text](./images/usercontroller.png "User Controller")
+
+- **Endpoints relativos a grupo**
+
+  ![Alt text](./images/groupcontroller.png "User Controller")
+
+- **Endpoints relativos a débito**
+
+  ![Alt text](./images/debtcontroller.png "User Controller")
+
+Mais detalhes sobre cada endpoint podem ser vistos apos a execução da aplicação. Para testes locais, ao executar a
+aplicação podemos encontrar as definições dos endpoints em ``localhost:8080/swagger-ui/index.html``.
+
+Um arquivo .properties é fornecido com a configuração do banco de dados em memória H2. esse arquivo está nomeado
+como ``application-dev.properties``. Para informar a Spring utilizar esse arquivo, é preciso adicionar
+a variável de ambiente ``SPRING_PROFILES_ACTIVE=dev``. 

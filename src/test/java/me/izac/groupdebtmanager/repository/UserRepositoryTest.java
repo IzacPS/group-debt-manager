@@ -1,6 +1,5 @@
 package me.izac.groupdebtmanager.repository;
 
-import me.izac.groupdebtmanager.model.Group;
 import me.izac.groupdebtmanager.model.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

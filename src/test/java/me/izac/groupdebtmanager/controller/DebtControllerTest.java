@@ -1,9 +1,11 @@
 package me.izac.groupdebtmanager.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.izac.groupdebtmanager.dto.*;
+import me.izac.groupdebtmanager.dto.CreateDebtDTO;
+import me.izac.groupdebtmanager.dto.DebtCompleteDTO;
+import me.izac.groupdebtmanager.dto.DebtDTO;
+import me.izac.groupdebtmanager.dto.ListOfIdsDTO;
 import me.izac.groupdebtmanager.model.Debt;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc

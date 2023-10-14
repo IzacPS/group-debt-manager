@@ -3,8 +3,6 @@ package me.izac.groupdebtmanager.dto;
 import lombok.*;
 import me.izac.groupdebtmanager.model.Debt;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Builder

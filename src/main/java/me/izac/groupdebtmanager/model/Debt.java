@@ -5,10 +5,8 @@ import lombok.*;
 import me.izac.groupdebtmanager.dto.DebtCompleteDTO;
 import me.izac.groupdebtmanager.dto.DebtDTO;
 import me.izac.groupdebtmanager.dto.DebtDebtorDTO;
-import org.apache.commons.lang3.builder.EqualsExclude;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Setter

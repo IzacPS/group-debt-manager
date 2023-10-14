@@ -1,14 +1,10 @@
 package me.izac.groupdebtmanager.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import me.izac.groupdebtmanager.dto.CreateGroupDTO;
 import me.izac.groupdebtmanager.dto.GroupCompleteDTO;
 import me.izac.groupdebtmanager.dto.GroupDTO;
-import me.izac.groupdebtmanager.dto.UserDTO;
-import me.izac.groupdebtmanager.model.Debt;
 import me.izac.groupdebtmanager.model.Group;
-import me.izac.groupdebtmanager.model.User;
 import me.izac.groupdebtmanager.repository.DebtRepository;
 import me.izac.groupdebtmanager.repository.GroupRepository;
 import me.izac.groupdebtmanager.repository.UserRepository;
