@@ -2,8 +2,10 @@ package me.izac.groupdebtmanager.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.izac.groupdebtmanager.dto.UserCompleteDTO;
 import me.izac.groupdebtmanager.dto.UserDTO;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -12,7 +14,6 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Table(name = "tb_user")
 public class User {
     @Id
@@ -25,14 +26,17 @@ public class User {
     private String email;
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_group",
         joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<Group> groups;
 
-    @OneToMany(mappedBy = "debtor")
-    private Set<Debt> debts;
+    @OneToMany(mappedBy = "creditor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Debt> debtsAsCreditor;
+
+    @OneToMany(mappedBy = "debtor", fetch = FetchType.EAGER)
+    private Set<DebtDebtor> debtsAsDebtor;
 
     public UserDTO toUserDTO(){
         return UserDTO.builder()
@@ -40,6 +44,18 @@ public class User {
                 .email(this.email)
                 .firstName(this.firstName)
                 .lastName(this.lastName)
+                .build();
+    }
+
+    public UserCompleteDTO toUserCompleteDTO(){
+        return UserCompleteDTO.builder()
+                .id(this.id)
+                .email(this.email)
+                .firstName(this.firstName)
+                .lastName(this.lastName)
+                .debtsAsCreditor(debtsAsCreditor.stream().map(Debt::getId).toList())
+                .debtsAsDebtor(debtsAsDebtor.stream().map(d -> d.getDebtor().getId()).toList())
+                .groups(groups.stream().map(Group::getId).toList())
                 .build();
     }
 }

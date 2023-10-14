@@ -1,8 +1,6 @@
 package me.izac.groupdebtmanager.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import me.izac.groupdebtmanager.model.Group;
 
 import java.util.Set;
@@ -10,6 +8,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateGroupDTO {
     private String name;
     private String description;

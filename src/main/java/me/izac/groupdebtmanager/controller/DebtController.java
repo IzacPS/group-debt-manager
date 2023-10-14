@@ -2,8 +2,7 @@ package me.izac.groupdebtmanager.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import me.izac.groupdebtmanager.dto.CreateDebtDTO;
-import me.izac.groupdebtmanager.dto.DebtDTO;
+import me.izac.groupdebtmanager.dto.*;
 import me.izac.groupdebtmanager.service.IDebtService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +23,20 @@ public class DebtController {
 
     @Operation(summary= "Atualizar um débito existente")
     @PutMapping("/{debtId}")
-    DebtDTO updateDebt(@RequestBody CreateDebtDTO debtDTO, @PathVariable Long debtId){
+    DebtCompleteDTO updateDebt(@RequestBody CreateDebtDTO debtDTO, @PathVariable Long debtId){
         return debtService.updateDebt(debtDTO, debtId);
     }
 
     @Operation(summary= "Buscar débito")
     @GetMapping("/{debtId}")
-    DebtDTO getDebt(@PathVariable Long debtId){
+    DebtCompleteDTO getDebt(@PathVariable Long debtId){
         return debtService.getDebtById(debtId);
+    }
+
+
+    @Operation(summary = "Dividir débito entre usuários")
+    @PostMapping("/{debtId}/divide")
+    DebtCompleteDTO divideDebt(@RequestBody ListOfIdsDTO ids, @PathVariable Long debtId){
+        return debtService.divideDebt(ids, debtId);
     }
 }

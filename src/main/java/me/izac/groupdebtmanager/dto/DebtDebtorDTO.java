@@ -10,10 +10,10 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DebtDTO {
+public class DebtDebtorDTO {
     private Long id;
     private double amount;
     private Long creditor;
-    private Long group;
     private Debt.Status status;
+    private Long group;
 }

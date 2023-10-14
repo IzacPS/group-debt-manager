@@ -2,16 +2,19 @@ package me.izac.groupdebtmanager.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.izac.groupdebtmanager.dto.DebtCompleteDTO;
 import me.izac.groupdebtmanager.dto.DebtDTO;
+import me.izac.groupdebtmanager.dto.DebtDebtorDTO;
 import org.apache.commons.lang3.builder.EqualsExclude;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
 @Builder
 @Entity
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tb_debt")
@@ -28,8 +31,11 @@ public class Debt {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "debtor_id")
-    private User debtor;
+    @JoinColumn(name = "creditor_id")
+    private User creditor;
+
+    @OneToMany(mappedBy = "debt", fetch = FetchType.EAGER)
+    private Set<DebtDebtor> debtors;
 
     @ManyToOne
     @JoinColumn(name = "group_id")
@@ -39,13 +45,33 @@ public class Debt {
         return DebtDTO.builder()
                 .id(this.id)
                 .amount(this.amount)
-                .amountPerUser(this.amountPerUser)
-                .debtor(this.debtor.toUserDTO())
-                .group(this.group.toGroupDTO())
+                .creditor(this.creditor.getId())
+                .group(this.group.getId())
                 .status(this.status)
                 .build();
 
     }
+
+    public DebtCompleteDTO toDebtCompleteDTO(){
+        return DebtCompleteDTO.builder()
+                .id(this.id)
+                .amount(this.amount)
+                .debtors(this.debtors.stream().map(d -> d.getDebtor().getId()).toList())
+                .creditor(this.creditor.getId())
+                .status(this.status)
+                .group(this.group.getId())
+                .build();
+
+    }
+     public DebtDebtorDTO toDebtDebtorDTO(Debt.Status status){
+        return DebtDebtorDTO.builder()
+                .id(this.id)
+                .amount(this.amountPerUser)
+                .creditor(this.creditor.getId())
+                .status(status)
+                .group(this.group.getId())
+                .build();
+     }
 
     public enum Status{
         PENDING,

@@ -9,9 +9,19 @@ import java.util.List;
 
 @Repository
 public interface DebtRepository extends JpaRepository<Debt, Long> {
-    @Query("select u.debts from User u where u.id = ?1")
-    List<Debt> findAllDebtsFromUser(Long userId);
+    @Query("select d from Debt d join d.debtors ds where ds.debtor.id = ?1")
+    List<Debt> findAllByDebtorsId(Long userId);
 
-    @Query("select g.debts from Group g where g.id = ?1")
-    List<Debt> findAllDebtsFromGroup(Long groupId);
+    @Query("select d from Debt d join d.debtors ds where ds.debtor.email = ?1")
+    List<Debt> findAllByDebtorsEmail(String email);
+
+
+    @Query("select d from Debt d where d.creditor.id = ?1")
+    List<Debt> findAllByCreditorId(Long userId);
+
+    @Query("select d from Debt d join d.creditor ds where ds.email = ?1")
+    List<Debt> findAllByCreditorEmail(String email);
+
+    @Query("select d from Debt d where d.group.id = ?1")
+    List<Debt> findAllByGroupId(Long groupId);
 }

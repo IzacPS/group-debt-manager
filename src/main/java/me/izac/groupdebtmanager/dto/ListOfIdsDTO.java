@@ -1,14 +1,15 @@
 package me.izac.groupdebtmanager.dto;
 
+
 import lombok.*;
 
-@Setter
+import java.util.List;
+
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupDTO {
-    private Long id;
-    private String name;
-    private String description;
+public class ListOfIdsDTO {
+    List<Long> ids;
 }

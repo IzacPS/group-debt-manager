@@ -1,8 +1,6 @@
 package me.izac.groupdebtmanager.repository;
 
 import me.izac.groupdebtmanager.model.Group;
-import me.izac.groupdebtmanager.model.User;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -15,69 +13,33 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(MockitoExtension.class)
 @DataJpaTest
 @ActiveProfiles("test")
-public class GroupRepositoryTest {
+class GroupRepositoryTest {
 
-    @Autowired
-    GroupRepository groupRepository;
-    Group group;
-
-    @BeforeAll
-    void newGroup(){
-        group = Group.builder()
-                .id(1L)
-                .name("Group First")
-                .description("The First Group")
-                .users(Set.of())
-                .debts(Set.of())
-                .build();
-    }
-
+    @Autowired GroupRepository groupRepository;
     @Test
-    @DisplayName("Save new Group to database")
-    void saveGroup() {
-        Group retGroup = groupRepository.save(group);
-
-        assertEquals(retGroup, group);
-    }
-
-    @Test
-    @DisplayName("Update existing group")
-    void updateGroup() {
-        Group updatedGroup = group.toBuilder().name("New Group Name").build();
-        Group retGroup = groupRepository.save(updatedGroup);
-
-        assertEquals(retGroup, updatedGroup);
-        assertNotEquals(retGroup, group);
-    }
-    @Test
-    @Sql("/scripts/new_group.sql")
+    @Sql("/scripts/usergroup.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    @DisplayName("Find Group by id")
-    void findGroupById() {
-        Optional<Group> ret = groupRepository.findById(1L);
-        assertTrue(ret.isPresent());
-        assertEquals(ret.get(), group);
-
-        ret = groupRepository.findById(10L);
-        assertFalse(ret.isPresent());
+    @DisplayName("Find all groups by user id")
+    void findAllByUserId() {
+        List<Group> groups = groupRepository.findAllByUserId(3L);
+        assertFalse(groups.isEmpty());
+        assertEquals(groups.size(), 2);
     }
 
     @Test
-    @Sql("/scripts/list_of_groups.sql")
+    @Sql("/scripts/usergroup.sql")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    @DisplayName("Find list of existing Groups")
-    void listAllGroups() {
-        List<Group> groupList = groupRepository.findAll();
-        assertFalse(groupList.isEmpty());
-
-        assertEquals(groupList.size(), 5);
+    @DisplayName("Find all groups by user email")
+    void findAllByUserEmail() {
+        List<Group> groups = groupRepository.findAllByUserEmail("carlos@example.com");
+        assertFalse(groups.isEmpty());
+        assertEquals(groups.size(), 2);
     }
 }

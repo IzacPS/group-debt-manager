@@ -2,13 +2,10 @@ package me.izac.groupdebtmanager.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import me.izac.groupdebtmanager.dto.CreateGroupDTO;
-import me.izac.groupdebtmanager.dto.DebtDTO;
-import me.izac.groupdebtmanager.dto.GroupDTO;
+import me.izac.groupdebtmanager.dto.*;
 import me.izac.groupdebtmanager.service.IDebtService;
 import me.izac.groupdebtmanager.service.IGroupService;
 import me.izac.groupdebtmanager.service.IUserGroupService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +19,7 @@ public class GroupController {
     private final IDebtService debtService;
 
 
-    @Operation(summary= "Cria um novo grupo")
+    @Operation(summary= "Criar um novo grupo")
     @PostMapping
     GroupDTO createGroup(@RequestBody CreateGroupDTO groupDTO){
         return groupService.createGroup(groupDTO);
@@ -30,31 +27,37 @@ public class GroupController {
 
     @Operation(summary= "Atualizar um grupo existente")
     @PutMapping("/{groupId}")
-    GroupDTO updateGroup(@RequestBody CreateGroupDTO groupDTO, @PathVariable Long groupId){
+    GroupCompleteDTO updateGroup(@RequestBody CreateGroupDTO groupDTO, @PathVariable Long groupId){
         return groupService.updateGroup(groupDTO, groupId);
     }
 
     @Operation(summary= "Buscar um grupo")
     @GetMapping("/{groupId}")
-    GroupDTO getGroup(@PathVariable Long groupId){
+    GroupCompleteDTO getGroup(@PathVariable Long groupId){
         return groupService.findGroupById(groupId);
     }
 
-    @Operation(summary= "Adicionar um usuário a um grupo")
-    @PostMapping("/{groupId}/users/{userId}")
-    void addUserToGroup(@PathVariable Long groupId, @PathVariable Long userId){
-        userGroupService.addUserToGroup(groupId, userId);
+    @Operation(summary= "Adicionar usuários a um grupo")
+    @PostMapping("/{groupId}/users")
+    GroupCompleteDTO addUserToGroup(@RequestBody ListOfIdsDTO users, @PathVariable Long groupId){
+        return userGroupService.addUserToGroup(users, groupId);
     }
 
-    @Operation(summary= "Remover um usuário de um grupo")
-    @DeleteMapping("/{groupId}/users/{userId}")
-    void deleteUserToGroup(@PathVariable Long groupId, @PathVariable Long userId){
-        userGroupService.removeUserFromGroup(groupId, userId);
+    @Operation(summary= "Remover usuários de um grupo")
+    @DeleteMapping("/{groupId}/users")
+    void deleteUserToGroup(@RequestBody ListOfIdsDTO users, @PathVariable Long groupId){
+        userGroupService.removeUserFromGroup(users, groupId);
     }
 
-    @Operation(summary= "Listar os debtos de um grupo")
+    @Operation(summary = "Listar todos os usuário de um grupo")
+    @GetMapping("/{groupId}/users")
+    List<UserCompleteDTO> getAllUsersOfGroup(@PathVariable Long groupId){
+        return userGroupService.findAllUsersInGroup(groupId);
+    }
+
+    @Operation(summary= "Listar os débitos de um grupo")
     @GetMapping("/{groupId}/debts")
-    List<DebtDTO> getDebtsFromGroup(@PathVariable Long groupId){
+    List<DebtCompleteDTO> getDebtsFromGroup(@PathVariable Long groupId){
         return debtService.listAllDebtsFromGroup(groupId);
     }
 }

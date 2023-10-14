@@ -1,30 +1,25 @@
-INSERT INTO TB_USER (FIRST_NAME,LAST_NAME,EMAIL,PASSWORD)
-VALUES
-('Lucas', 'Souza', 'lucasmail@mail.com', 'secret1'),
-('Marcos', 'Silva', 'marcosmail@mail.com', 'secret2'),
-('Tereza', 'Pereira', 'terezamail@mail.com', 'secret3'),
-('Jessica', 'Anjos', 'jessicamail@mail.com', 'secret4'),
-('Fabiola', 'Jonson', 'fabiolamail@mail.com', 'secret5'),
-('Mariana', 'Cabral', 'marianamail@mail.com', 'secret6');
+INSERT INTO tb_group (name, description) VALUES
+  ('Casa Amarela', 'Compartilhamento de despesas na casa amarela'),
+  ('Familia Silva', 'Despesas da familia Silva');
 
+INSERT INTO tb_user (email, password, first_name, last_name) VALUES
+  ('joao@example.com', 'senha123', 'Joao', 'Silva'),
+  ('maria@example.com', 'senha456', 'Maria', 'Ferreira'),
+  ('carlos@example.com', 'senha789', 'Carlos', 'Oliveira'),
+  ('ana@example.com', 'senha101', 'Ana', 'Santos'),
+  ('lucas@example.com', 'senha202', 'Lucas', 'Ribeiro'),
+  ('rafaela@example.com', 'senha303', 'Rafaela', 'Gomes');
 
-INSERT INTO TB_GROUP (DESCRIPTION,NAME)
-VALUES
-('The First Group', 'Group First'),
-('The Second Group', 'Group Second');
+INSERT INTO tb_debt (description, amount, creditor_id, group_id, amount_per_user, status, date) VALUES
+  ('Conta de luz', 150.00, 1, 1, 50.00, 'PENDING', '2023-10-20'),
+  ('Aluguel', 2000.00, 1, 2, 1000.00, 'PENDING', '2023-10-15'),
+  ('Supermercado', 300.00, 3, 1, 100.00, 'PENDING', '2023-10-18');
 
-INSERT INTO TB_DEBT (AMOUNT, AMOUNT_PER_USER, DATE, DEBTOR_ID, GROUP_ID, DESCRIPTION, STATUS)
-VALUES
-(00, 20, CURRENT_DATE, 1, 1, 'Pay your debts', 'PENDING'),
-(00, 20, CURRENT_DATE, 2, 1, 'Pay your debts', 'PENDING'),
-(00, 20, CURRENT_DATE, 3, 1, 'Pay your debts', 'PENDING'),
-(00, 20, CURRENT_DATE, 4, 1, 'Pay your debts', 'PENDING'),
-(00, 20, CURRENT_DATE, 5, 1, 'Pay your debts', 'PENDING'),
-
-(0, 15, CURRENT_DATE, 6, 2, 'just another debts', 'PENDING'),
-(0, 15, CURRENT_DATE, 4, 2, 'just another debts', 'PAID'),
-(0, 15, CURRENT_DATE, 1, 2, 'just another debts', 'PENDING'),
-(00, 15, CURRENT_DATE, 2, 2, 'just another debts', 'PENDING'),
-
-(20, 10, CURRENT_DATE, 3, 1, 'debt, yes!', 'PAID'),
-(20, 10, CURRENT_DATE, 4, 1, 'debt, yes!', 'PENDING');
+INSERT INTO debt_debtor (debt_id, debtor_id, status) VALUES
+  (1, 2, 'PENDING'),
+  (1, 3, 'PENDING'),
+  (1, 5, 'PENDING'),
+  (2, 4, 'PENDING'),
+  (2, 5, 'PENDING'),
+  (3, 2, 'PENDING'),
+  (3, 6, 'PENDING');
